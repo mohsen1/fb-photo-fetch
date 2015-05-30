@@ -1,4 +1,5 @@
 var request = require('request');
+var debug = require('debug')('API calls');
 
 // walks the paginated responses to end
 module.exports = function (url, cb) {
@@ -6,6 +7,8 @@ module.exports = function (url, cb) {
   var all = [];
 
   getURL(url);
+
+  debug('getting ' + url);
 
   function getURL(url) {
 

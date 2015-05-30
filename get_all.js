@@ -1,5 +1,6 @@
 var async = require('async');
 var paginate = require('./paginate');
+var debug = require('debug')('Assembling JSON');
 
 
 module.exports = function (token, shouldGetTaggedPhotos, cb) {
@@ -13,10 +14,13 @@ module.exports = function (token, shouldGetTaggedPhotos, cb) {
       if (err) { return cb(err); }
 
       if (!shouldGetTaggedPhotos) {
+        debug('finished getting all albums. Not getting tagged photos');
         cb(null, albums)
       } else {
         paginate(url('/me/photos'), function(err, taggedPhotos) {
           if (err) { return cb(err); }
+
+          debug('got all tagged photos.')
 
           cb(null, albums.concat({
             name: 'My Tagged Photos',
@@ -34,10 +38,14 @@ module.exports = function (token, shouldGetTaggedPhotos, cb) {
       cb(new Error('no album id found'))
     }
 
+    debug('Getting photos to album with id: ' + album.id);
+
     paginate(url('/', album.id, '/photos'), function (err, photos) {
       if (err) { cb(err); }
 
       album.photos = photos;
+
+      debug('finished getting photos to album with id: ' + album.id);
 
       cb(null, album);
     });
