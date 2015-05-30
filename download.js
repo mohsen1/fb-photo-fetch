@@ -5,6 +5,8 @@ var debug = require('debug')('Download');
 var request = require('request');
 var mkdirp = require('mkdirp');
 
+var addExif = require('./add_exif');
+
 module.exports = function(albums, dest) {
 
   mkdirp.sync(dest);
@@ -26,14 +28,21 @@ module.exports = function(albums, dest) {
     });
 
     function downloadPhoto(photo, cb) {
+      var filePath = path.join(albumPath, photo.id + '.jpg');
 
       request(photo.images[0].source)
-        .on('response', function (res) {
-          res.pipe(fs.createWriteStream(path.join(albumPath, photo.id + '.jpg')))
-          .on('error', console.log)
-          .on('end', cb);
-        })
-        .on('error', console.log);
+        .on('request', function (response) {
+          streamToBuffer(response, function (err, buffer) {
+
+            if (err) {
+              return debug('Error converting ' + (photo.name || photo.id));
+            }
+
+            var result = addExif(photo, buffer.toString('binary'));
+
+            fs.writeFile(filePath, result, 'binary', cb);
+          });
+        });
     }
   }
 };
