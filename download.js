@@ -4,6 +4,7 @@ var path = require('path');
 var debug = require('debug')('Download');
 var request = require('request');
 var mkdirp = require('mkdirp');
+var streamToBuffer = require('stream-to-buffer');
 
 var addExif = require('./add_exif');
 
@@ -31,7 +32,7 @@ module.exports = function(albums, dest) {
       var filePath = path.join(albumPath, photo.id + '.jpg');
 
       request(photo.images[0].source)
-        .on('request', function (response) {
+        .on('response', function (response) {
           streamToBuffer(response, function (err, buffer) {
 
             if (err) {

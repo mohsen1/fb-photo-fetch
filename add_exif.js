@@ -10,11 +10,11 @@ module.exports = function (photo, file) {
 
   exif[piexif.ExifIFD.DateTimeOriginal] = date;
   gps[piexif.GPSIFD.GPSDateStamp] = date;
-  gps[piexif.GPS.GPSTimeStamp] = date;
+  gps[piexif.GPSIFD.GPSTimeStamp] = date;
 
   if (photo.place && photo.place.location) {
-    gps[piexif.GPS.GPSLatitude] = photo.place.location.latitude;
-    gps[piexif.GPS.GPSLongitude] = photo.place.location.longitude;
+    gps[piexif.GPSIFD.GPSLatitude] = photo.place.location.latitude;
+    gps[piexif.GPSIFD.GPSLongitude] = photo.place.location.longitude;
   }
 
   var exifObj = {"0th":zeroth, "Exif":exif, "GPS":gps};

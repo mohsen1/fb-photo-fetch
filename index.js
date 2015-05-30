@@ -1,3 +1,6 @@
+process.env.DEBUG = '*';
+
+
 var fs = require('fs');
 var path = require('path');
 var getAll = require('./get_all');
