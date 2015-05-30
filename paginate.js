@@ -1,7 +1,7 @@
 var request = require('request');
-var debug = require('debug')('API calls');
+var debug = require('debug')('API call');
 
-// walks the paginated responses to end
+// walks the paginated responses to it's end an callbacks with all the results
 module.exports = function (url, cb) {
 
   var all = [];
@@ -24,7 +24,7 @@ module.exports = function (url, cb) {
       }
 
       if (!result || !Array.isArray(result.data)) {
-        cb(new Error('Bad response while getting ' + url + ' payload:' + result));
+        cb(new Error('Bad response while getting ' + url + ' payload: ' + res.body));
       }
 
       all = all.concat(result.data);

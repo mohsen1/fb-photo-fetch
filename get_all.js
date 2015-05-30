@@ -17,13 +17,16 @@ module.exports = function (token, shouldGetTaggedPhotos, cb) {
         debug('finished getting all albums. Not getting tagged photos');
         cb(null, albums)
       } else {
+
+        debug('getting tagged photos.');
+
         paginate(url('/me/photos'), function(err, taggedPhotos) {
           if (err) { return cb(err); }
 
           debug('got all tagged photos.')
 
           cb(null, albums.concat({
-            name: 'My Tagged Photos',
+            name: 'Photos of me (Tagged photos)',
             photos: taggedPhotos
           }));
         });
@@ -45,7 +48,7 @@ module.exports = function (token, shouldGetTaggedPhotos, cb) {
 
       album.photos = photos;
 
-      debug('finished getting photos to album with id: ' + album.id);
+      debug('finished adding photos to album: ' + album.name);
 
       cb(null, album);
     });
