@@ -54,6 +54,9 @@ module.exports = function(albums, dest) {
               }, 10);
             });
           });
+        })
+        .on('error', function(err) {
+          debug('Error downloading ' + photo.id + err.toString());
         });
     }
   }
