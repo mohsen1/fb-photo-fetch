@@ -5,6 +5,7 @@ var debug = require('debug')('Download');
 var request = require('request');
 var mkdirp = require('mkdirp');
 var streamToBuffer = require('stream-to-buffer');
+var touch = require('touch');
 
 var addExif = require('./add_exif');
 
@@ -39,9 +40,19 @@ module.exports = function(albums, dest) {
               return debug('Error converting ' + (photo.name || photo.id));
             }
 
-            var result = addExif(photo, buffer.toString('binary'));
+            // var result = addExif(photo, buffer.toString('binary'));
 
-            fs.writeFile(filePath, result, 'binary', cb);
+            fs.writeFile(filePath, buffer, 'binary', function(err) {
+              if (err) { return cb(err); }
+
+              var opts = {
+                time: photo.created_time
+              };
+
+              setTimeout(function() {
+                touch(filePath, opts, cb);
+              }, 10);
+            });
           });
         });
     }

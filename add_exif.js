@@ -13,8 +13,8 @@ module.exports = function (photo, file) {
   gps[piexif.GPSIFD.GPSTimeStamp] = date;
 
   if (photo.place && photo.place.location) {
-    gps[piexif.GPSIFD.GPSLatitude] = photo.place.location.latitude;
-    gps[piexif.GPSIFD.GPSLongitude] = photo.place.location.longitude;
+    gps[piexif.GPSIFD.GPSLatitude] = [1, photo.place.location.latitude]
+    gps[piexif.GPSIFD.GPSLongitude] = [1, photo.place.location.longitude];
   }
 
   var exifObj = {"0th":zeroth, "Exif":exif, "GPS":gps};

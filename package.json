@@ -16,6 +16,7 @@
     "piexifjs": "^1.0.0",
     "request": "^2.56.0",
     "stream-to-buffer": "^0.1.0",
-    "to-exif-date": "^1.0.0"
+    "to-exif-date": "^1.0.0",
+    "touch": "0.0.3"
   }
 }
