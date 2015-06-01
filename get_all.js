@@ -1,6 +1,6 @@
 var async = require('async');
 var paginate = require('./paginate');
-var debug = require('debug')('Assembling JSON');
+var debug = require('debug')('json');
 
 
 module.exports = function (token, shouldGetTaggedPhotos, cb) {

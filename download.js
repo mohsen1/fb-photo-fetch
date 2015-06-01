@@ -1,7 +1,7 @@
 var fs = require('fs');
 var async = require('async');
 var path = require('path');
-var debug = require('debug')('Download');
+var debug = require('debug')('download');
 var request = require('request');
 var mkdirp = require('mkdirp');
 var streamToBuffer = require('stream-to-buffer');
@@ -40,9 +40,9 @@ module.exports = function(albums, dest) {
               return debug('Error converting ' + (photo.name || photo.id));
             }
 
-            // var result = addExif(photo, buffer.toString('binary'));
+            var result = addExif(photo, buffer.toString('binary'));
 
-            fs.writeFile(filePath, buffer, 'binary', function(err) {
+            fs.writeFile(filePath, result, 'binary', function(err) {
               if (err) { return cb(err); }
 
               var opts = {

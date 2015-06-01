@@ -1,5 +1,5 @@
 var request = require('request');
-var debug = require('debug')('API call');
+var debug = require('debug')('api');
 
 // walks the paginated responses to it's end an callbacks with all the results
 module.exports = function (url, cb) {

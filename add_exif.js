@@ -4,6 +4,8 @@ var makeDescription = require('./make_description');
 var makeLikes = require('./make_likes');
 var makeTags = require('./make_tags');
 
+var debug = require('debug')('exif');
+
 module.exports = function (photo, file) {
   var zeroth = {};
   var exif = {};
@@ -20,19 +22,23 @@ module.exports = function (photo, file) {
   zeroth[piexif.ImageIFD.Make] = "Facebook Photo";
 
 
-  zeroth[piexif.ImageIFD.ImageDescription] = (photo.name || '') +
-    makeLikes(photo) +
-    ' liked this photo on Facebook\n' +
-    'Facebook comments\n\n' + makeDescription(photo);
-    '\nIn this photo: ' + makeTags(photo) +
-    '\nThis photo was downloaded from Facebook.' +
-    '\nLink: ' + photo.link +
-    '\nPhoto ID: ' + photo.id
+  var description = (photo.name || '') +
+    '\n\n' + makeLikes(photo) + ' liked this photo on Facebook' +
+    '\n\nFacebook comments:\n\n' + makeDescription(photo) +
+    '\n\nIn this photo: ' + makeTags(photo) +
+    '\n\nThis photo was downloaded from Facebook.' +
+    '\n\nLink: ' + photo.link +
+    '\n\nPhoto ID: ' + photo.id
 
+  zeroth[piexif.ImageIFD.ImageDescription] = description;
+
+  debug('Adding description to photo: ' + photo.id + ' description: ' + description);
 
   var MULTIPLIER = 1000000; // lat-long multiplier
 
   if (photo.place && photo.place.location) {
+
+    debug('Adding GPS data to ' + photo.id);
 
     // If value is negative then it is either west longitude or south latitude.
     // From: http://www.offroaders.com/info/tech-corner/reading/GPS-Coordinates.htm
