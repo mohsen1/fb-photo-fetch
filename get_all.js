@@ -44,7 +44,9 @@ module.exports = function (token, shouldGetTaggedPhotos, cb) {
     debug('Getting photos to album with id: ' + album.id);
 
     paginate(url('/', album.id, '/photos'), function (err, photos) {
-      if (err) { cb(err); }
+      if (err) { return cb(err); }
+
+      // TODO: paginate in likes and comments of each photo.
 
       album.photos = photos;
 
