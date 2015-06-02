@@ -9,14 +9,17 @@ var touch = require('touch');
 
 var addExif = require('./add_exif');
 
-module.exports = function(albums, dest) {
+module.exports = function(albums, dest, cb, progressCb, totalCount) {
+
+  var count = 0;
 
   mkdirp.sync(dest);
 
   async.each(albums, downloadAlbum, function(err) {
-    if (err) throw err;
 
-    debug('Finished downloading all albums');
+    debug('Successfully downloaded all albums.');
+
+    if (typeof cb === 'function') { cb(err); }
   });
 
   function downloadAlbum(album, dlAlbumCb) {
@@ -51,6 +54,8 @@ module.exports = function(albums, dest) {
 
               setTimeout(function() {
                 touch(filePath, opts, cb);
+                count++;
+                progressCb((count * 100) / totalCount);
               }, 10);
             });
           });

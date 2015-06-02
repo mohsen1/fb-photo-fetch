@@ -7,7 +7,7 @@ module.exports = function (token, shouldGetTaggedPhotos, cb) {
 
   paginate(url('/me/albums'), function (err, albums) {
 
-    if (err) { throw err; }
+    if (err) { cb(err); }
 
     // for each album, fill in all the photos objects
     async.map(albums, addPhotosToAlbum, function (err, albums) {

@@ -4,19 +4,29 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "./node_modules/electron-prebuilt/dist/Electron.app/Contents/MacOS/Electron ."
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "angular": "^1.4.0",
+    "angular-animate": "^1.4.0",
+    "angular-aria": "^1.4.0",
+    "angular-material": "^0.9.7",
     "async": "^1.0.0",
     "debug": "^2.2.0",
+    "lodash.throttle": "^3.0.3",
     "minimist": "^1.1.1",
     "mkdirp": "^0.5.1",
     "piexifjs": "^1.0.0",
     "request": "^2.56.0",
     "stream-to-buffer": "^0.1.0",
     "to-exif-date": "^1.0.0",
-    "touch": "0.0.3"
+    "touch": "0.0.3",
+    "user-home": "^1.1.1"
+  },
+  "devDependencies": {
+    "electron-prebuilt": "^0.27.2"
   }
 }

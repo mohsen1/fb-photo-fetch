@@ -1,25 +1,38 @@
-var fs = require('fs');
-var path = require('path');
-
-var argv = require('minimist')(process.argv.slice(2));
-var dest = argv.dest || path.join(__dirname, 'photos');
-var token = argv.token;
-
-if (!token) {
-  throw new Error('Please provide the token');
-}
-
-process.env.DEBUG = argv.debug || process.env.DEBUG;
 
 
-var getAll = require('./get_all');
-var download = require('./download');
+var app = require('app');  // Module to control application life.
+var BrowserWindow = require('browser-window');  // Module to create native browser window.
 
-getAll(token, argv.tagged, function (err, result) {
+// Report crashes to our server.
+require('crash-reporter').start();
 
-  if (err) {throw err; }
+// Keep a global reference of the window object, if you don't, the window will
+// be closed automatically when the javascript object is GCed.
+var mainWindow = null;
 
-  fs.writeFileSync('result.json', JSON.stringify(result, null, 4));
+// Quit when all windows are closed.
+app.on('window-all-closed', function() {
+  if (process.platform != 'darwin')
+    app.quit();
+});
 
-  download(result, dest);
+// This method will be called when Electron has done everything
+// initialization and ready for creating browser windows.
+app.on('ready', function() {
+  // Create the browser window.
+  mainWindow = new BrowserWindow({width: 800, height: 600});
+
+  // and load the index.html of the app.
+  mainWindow.loadUrl('file://' + __dirname + '/index.html');
+
+  // Open the devtools.
+  mainWindow.openDevTools();
+
+  // Emitted when the window is closed.
+  mainWindow.on('closed', function() {
+    // Dereference the window object, usually you would store windows
+    // in an array if your app supports multi windows, this is the time
+    // when you should delete the corresponding element.
+    mainWindow = null;
+  });
 });

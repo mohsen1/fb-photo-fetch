@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html ng-app="FBPhotoFetch">
+  <head>
+    <title>Facebook Photo Fetch</title>
+    <script src="./node_modules/angular/angular.min.js"></script>
+    <script src="./node_modules/angular-material/angular-material.min.js"></script>
+    <script src="./node_modules/angular-animate/angular-animate.min.js"></script>
+    <script src="./node_modules/angular-aria/angular-aria.min.js"></script>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
+    <link rel="stylesheet" href="./node_modules/angular-material/angular-material.min.css">
+    <style>
+      *:not(input) {
+        -webkit-user-select: none;
+        user-select: none;
+      }
+    </style>
+  </head>
+  <body ng-controller="AppCtrl">
+
+    <md-tabs md-border-bottom md-dynamic-height>
+      <md-tab label="Select Folder">
+      <md-tab label="Login">
+        <md-content class="md-padding">
+          <h3 class="md-display-5">Please Login</h3>
+          <p>Click the button below to login</p>
+          <p>&nbsp;</p>
+          <md-button class="md-raised md-primary">Facebook Login</md-button>
+          <p>&nbsp;</p>
+          <div layout="row" layout-align="end">
+            <md-button class="md-raised md-primary">Next</md-button>
+          </div>
+        </md-content>
+      </md-tab>
+        <md-content class="md-padding">
+          <h3 class="md-display-5">Welcome to Facebook Photo Fetch</h3>
+          <p>Download all the photos you uploaded to Facebook plus photos you're tagged in with all the metadata and correct data/time</p>
+          <p>&nbsp;</p>
+          <p>&nbsp;</p>
+          <p>&nbsp;</p>
+          <p class="md-padding">Downloading to {{dest}}.</p>
+          <p><a class="md-primary md-button md-default-theme" ng-click="">Change download folder</a></p>
+          <p>&nbsp;</p>
+          <p>&nbsp;</p>
+          <div layout="row" layout-align="end">
+            <md-button class="md-raised md-primary">Next</md-button>
+          </div>
+        </md-content>
+      </md-tab>
+      <md-tab label="download">
+        <md-content class="md-padding">
+          <h3 class="md-display-5">Download</h3>
+          <p></p>
+          <md-checkbox ng-model="tagged" aria-label="Tagged">Download my tagged photos</md-checkbox>
+          <p></p>
+          <md-progress-linear md-mode="determinate" ng-value="30"></md-progress-linear>
+        </md-content>
+      </md-tab>
+    </md-tabs>
+
+
+    <!-- <div layout="column" flex id="content">
+        <md-content layout="column" flex class="md-padding">
+          <div>
+            <h1>Facebook Photo Fetch</h1>
+            <p>Download all the photos you uploaded to Facebook plus photos you're tagged in with all the metadata and correct data/time</p>
+          </div>
+          <div>
+            <p class="md-padding">Downloading to {{dest}}.</p>
+            <p><a class="md-primary md-button md-default-theme" ng-click="">Change download folder</a></p>
+            <md-checkbox ng-model="tagged" aria-label="Tagged">Download my tagged photos</md-checkbox>
+            <md-button class="md-raised md-primary">Download</md-button>
+          </div>
+          <div>
+            <h3>Downloading</h3>
+            <h5>{{status}}</h5>
+            <md-progress-linear md-mode="determinate" ng-value="30"></md-progress-linear>
+          </div>
+        </md-content>
+    </div> -->
+
+   <script src="./app.js"></script>
+  </body>
+</html>

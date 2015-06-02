@@ -2,7 +2,17 @@
 
 > Download all the photos you uploaded to Facebook plus photos you're tagged in with all the metadata and correct data/time.
 
-### How to use
+### Download the app
+
+* Mac: ####[fb-photo-fetch.dmg](...)
+* Windows ####[fb-photo-fetch.exe](...)
+
+
+### Why?
+
+Because Facebook's take out service does not include location and date information in your photos when you download them. Also, Facebook take out service does not give you photos that you're tagged in. There are some tools to automate downloading the tagged photos but they lack date and location data. Most of those tools are very spammy.
+
+### Command Line
 
 Clone this repo and execute `index.js` with following flags:
 
@@ -18,7 +28,7 @@ Clone this repo and execute `index.js` with following flags:
 **Example**
 
 ```shell
-node index.js\
+node cli.js\
   --tagged=true\
   --dest=/Users/mhsen/Pictures/Facebook_Photos\
   --debug=api,json,download\
