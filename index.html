@@ -17,28 +17,32 @@
     </style>
   </head>
   <body ng-controller="AppCtrl">
-
     <md-tabs md-border-bottom md-dynamic-height>
-      <md-tab label="Select Folder">
-      <md-tab label="Login">
+      <md-tab label="Token">
         <md-content class="md-padding">
-          <h3 class="md-display-5">Please Login</h3>
-          <p>Click the button below to login</p>
+          <h3 class="md-display-5">Access Token</h3>
           <p>&nbsp;</p>
-          <md-button class="md-raised md-primary">Facebook Login</md-button>
+          <p>Click <a href="#" ng-click="openFB()">here</a> to get an access token and paste it blow</p>
+          <p>&nbsp;</p>
+          <md-input-container>
+            <label>Access Token</label>
+            <input type="text" ng-model="token" required>
+          </md-input-container>
+          <p>&nbsp;</p>
           <p>&nbsp;</p>
           <div layout="row" layout-align="end">
             <md-button class="md-raised md-primary">Next</md-button>
           </div>
         </md-content>
       </md-tab>
+      <md-tab label="Folder">
         <md-content class="md-padding">
           <h3 class="md-display-5">Welcome to Facebook Photo Fetch</h3>
           <p>Download all the photos you uploaded to Facebook plus photos you're tagged in with all the metadata and correct data/time</p>
           <p>&nbsp;</p>
           <p>&nbsp;</p>
           <p>&nbsp;</p>
-          <p class="md-padding">Downloading to {{dest}}.</p>
+          <p class="md-padding">Downloading to <b>{{dest}}</b>.</p>
           <p><a class="md-primary md-button md-default-theme" ng-click="">Change download folder</a></p>
           <p>&nbsp;</p>
           <p>&nbsp;</p>
@@ -57,28 +61,6 @@
         </md-content>
       </md-tab>
     </md-tabs>
-
-
-    <!-- <div layout="column" flex id="content">
-        <md-content layout="column" flex class="md-padding">
-          <div>
-            <h1>Facebook Photo Fetch</h1>
-            <p>Download all the photos you uploaded to Facebook plus photos you're tagged in with all the metadata and correct data/time</p>
-          </div>
-          <div>
-            <p class="md-padding">Downloading to {{dest}}.</p>
-            <p><a class="md-primary md-button md-default-theme" ng-click="">Change download folder</a></p>
-            <md-checkbox ng-model="tagged" aria-label="Tagged">Download my tagged photos</md-checkbox>
-            <md-button class="md-raised md-primary">Download</md-button>
-          </div>
-          <div>
-            <h3>Downloading</h3>
-            <h5>{{status}}</h5>
-            <md-progress-linear md-mode="determinate" ng-value="30"></md-progress-linear>
-          </div>
-        </md-content>
-    </div> -->
-
    <script src="./app.js"></script>
   </body>
 </html>

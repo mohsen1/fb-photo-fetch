@@ -19,6 +19,7 @@
     "lodash.throttle": "^3.0.3",
     "minimist": "^1.1.1",
     "mkdirp": "^0.5.1",
+    "open": "0.0.5",
     "piexifjs": "^1.0.0",
     "request": "^2.56.0",
     "stream-to-buffer": "^0.1.0",

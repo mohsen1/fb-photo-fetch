@@ -1,6 +1,9 @@
+'use strict';
+
 const userHome = require('user-home');
 const fs = require('fs');
 const path = require('path');
+const ipc = require('ipc');
 
 const downloadFolderName = 'Facebook Photos';
 
@@ -17,6 +20,10 @@ function AppCtrl($scope) {
   } else {
     $scope.dest = path.join(userHome, downloadFolderName);
   }
+
+  $scope.openFB = function() {
+    ipc.sendSync('open-fb');
+  };
 }
 
 // var throttle = require('lodash.throttle');
