@@ -14,40 +14,59 @@
         -webkit-user-select: none;
         user-select: none;
       }
+      md-content {
+        min-height: 550px;
+      }
+      button.next {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+      }
+      button.prev {
+        position: absolute;
+        left: 10px;
+        bottom: 10px;
+      }
+      md-tabs-wrapper {
+        display: none;
+      }
     </style>
   </head>
   <body ng-controller="AppCtrl">
-    <md-tabs md-border-bottom md-dynamic-height>
+    <md-tabs md-border-bottom md-dynamic-height md-no-pagination md-selected="tab">
       <md-tab label="Token">
         <md-content class="md-padding">
           <h3 class="md-display-5">Access Token</h3>
           <p>&nbsp;</p>
           <p>Click <a href="#" ng-click="openFB()">here</a> to get an access token and paste it blow</p>
           <p>&nbsp;</p>
-          <md-input-container>
-            <label>Access Token</label>
-            <input type="text" ng-model="token" required>
-          </md-input-container>
           <p>&nbsp;</p>
+          <div layout="row" layout-align="center center">
+            <md-input-container>
+              <label>Paste your Facebook access token here</label>
+              <input type="text" required ng-model="token">
+            </md-input-container>
+            <a class="md-primary md-button md-default-theme" ng-click="paste()">Paste</a>
+          </div>
           <p>&nbsp;</p>
           <div layout="row" layout-align="end">
-            <md-button class="md-raised md-primary">Next</md-button>
+            <md-button ng-disabled="!token" class="md-raised md-primary next" ng-click="next(token)">Next</md-button>
           </div>
         </md-content>
       </md-tab>
       <md-tab label="Folder">
         <md-content class="md-padding">
-          <h3 class="md-display-5">Welcome to Facebook Photo Fetch</h3>
-          <p>Download all the photos you uploaded to Facebook plus photos you're tagged in with all the metadata and correct data/time</p>
-          <p>&nbsp;</p>
-          <p>&nbsp;</p>
+          <h3 class="md-display-5">Select Download Folder</h3>
+          <p>Select the folder you want to store your photos.</p>
           <p>&nbsp;</p>
           <p class="md-padding">Downloading to <b>{{dest}}</b>.</p>
           <p><a class="md-primary md-button md-default-theme" ng-click="">Change download folder</a></p>
           <p>&nbsp;</p>
           <p>&nbsp;</p>
+          <p>&nbsp;</p>
           <div layout="row" layout-align="end">
-            <md-button class="md-raised md-primary">Next</md-button>
+            <md-button class="md-raised md-primary next" ng-click="next()">Next</md-button>
+            <md-button class="md-raised prev" ng-click="prev()">Previous</md-button>
           </div>
         </md-content>
       </md-tab>
@@ -55,9 +74,26 @@
         <md-content class="md-padding">
           <h3 class="md-display-5">Download</h3>
           <p></p>
-          <md-checkbox ng-model="tagged" aria-label="Tagged">Download my tagged photos</md-checkbox>
-          <p></p>
-          <md-progress-linear md-mode="determinate" ng-value="30"></md-progress-linear>
+          <div ng-if="!downloading">
+            <md-checkbox disabled ng-checked="true" aria-label="All">Download all my albums</md-checkbox>
+            <md-checkbox ng-model="tagged" aria-label="Tagged">Download my tagged photos</md-checkbox>
+          </div>
+          <p>&nbsp;</p>
+          <p>&nbsp;</p>
+          <p>&nbsp;</p>
+          <p>&nbsp;</p>
+          <div class="downloading" ng-if="downloading">
+            <p>Downloading...</p>
+            <p></p>
+            <md-progress-linear md-mode="determinate" value="{{progress}}" md-buffer-value="{{bufferProgress}}"></md-progress-linear>
+            <p></p>
+          </div>
+          <p>&nbsp;</p>
+          <p>&nbsp;</p>
+          <div layout="row" layout-align="end" ng-if="!downloading" >
+            <md-button class="md-raised md-primary next" ng-click="download()">Download</md-button>
+            <md-button class="md-raised prev" ng-click="prev()">Previous</md-button>
+          </div>
         </md-content>
       </md-tab>
     </md-tabs>
