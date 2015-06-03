@@ -30,6 +30,10 @@
       md-tabs-wrapper {
         display: none;
       }
+      .md-button label {
+        display: block;
+        cursor: pointer;
+      }
     </style>
   </head>
   <body ng-controller="AppCtrl">
@@ -56,12 +60,13 @@
       </md-tab>
       <md-tab label="Folder">
         <md-content class="md-padding">
-          <h3 class="md-display-5">Select Download Folder</h3>
-          <p>Select the folder you want to store your photos.</p>
+          <h3 class="md-display-5">Download Folder</h3>
+          <!-- <p>Select the folder you want to store your photos.</p> -->
+          <p>&nbsp;</p>
+          <p>&nbsp;</p>
+          <p>&nbsp;</p>
           <p>&nbsp;</p>
           <p class="md-padding">Downloading to <b>{{dest}}</b>.</p>
-          <p><a class="md-primary md-button md-default-theme" ng-click="">Change download folder</a></p>
-          <p>&nbsp;</p>
           <p>&nbsp;</p>
           <p>&nbsp;</p>
           <div layout="row" layout-align="end">
@@ -83,7 +88,8 @@
           <p>&nbsp;</p>
           <p>&nbsp;</p>
           <div class="downloading" ng-if="downloading">
-            <p>Downloading...</p>
+            <p ng-if="!progress && downloading">Gathering your photos information...</p>
+            <p ng-if="progress">Downloading...</p>
             <p></p>
             <md-progress-linear md-mode="determinate" value="{{progress}}" md-buffer-value="{{bufferProgress}}"></md-progress-linear>
             <p></p>

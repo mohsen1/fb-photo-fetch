@@ -6,6 +6,10 @@ module.exports = function execute(token, tagged, dest, cb, progressCb){
   getAll(token, tagged, function (err, result) {
     if (err) { return cb(err); }
 
+    if (!Array.isArray(result)) {
+      return cb('Failed to get Facebook photo information.');
+    }
+
     var count = result.reduce(function (count, album) {
       return album.photos.length + count;
     }, 0);

@@ -28,10 +28,10 @@ Clone this repo and execute `index.js` with following flags:
 **Example**
 
 ```shell
-node cli.js\
-  --tagged=true\
-  --dest=/Users/mhsen/Pictures/Facebook_Photos\
-  --debug=api,json,download\
+node cli.js \
+  --tagged=true \
+  --dest=/Users/mhsen/Pictures/Facebook_Photos \
+  --debug=api,json,download \
   --token=MY_FB_ACCESS_TOKEN
 ```
 

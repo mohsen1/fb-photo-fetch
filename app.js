@@ -48,7 +48,7 @@ function AppCtrl($scope, $interval) {
 
   $scope.download = function() {
 
-    // execute(token, $scope.tagged, $scope.dest, finish, progress);
+    execute(token, $scope.tagged, $scope.dest, finish, progress);
 
     $scope.downloading = true;
 
@@ -66,6 +66,7 @@ function AppCtrl($scope, $interval) {
       } else {
         alert('There was an error downloading your photos.');
       }
+      $scope.downloading = false;
     }
   };
 
@@ -83,5 +84,12 @@ function AppCtrl($scope, $interval) {
     e.preventDefault();
     menu.popup(remote.getCurrentWindow());
   }, false);
+
+
+  $scope.$watch('selectedFile', function () {
+    if ($scope.selectedFile) {
+      $scope.dest = $scope.selectedFile[0].path;
+    }
+  })
 }
 
