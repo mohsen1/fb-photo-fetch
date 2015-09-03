@@ -32,7 +32,7 @@ module.exports = function(albums, dest) {
     function downloadPhoto(photo, cb) {
       var filePath = path.join(albumPath, photo.id + '.jpg');
 
-      request((Array.isArray(photo.images) && photo.images[0].source) || photo.source)
+      request((Array.isArray(photo.images) && photo.images.length > 0 && photo.images[0].source) || photo.source)
         .on('response', function (response) {
           streamToBuffer(response, function (err, buffer) {
 
