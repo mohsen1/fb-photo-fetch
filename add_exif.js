@@ -37,23 +37,26 @@ module.exports = function (photo, file) {
   var MULTIPLIER = 1000000; // lat-long multiplier
 
   if (photo.place && photo.place.location) {
-
     debug('Adding GPS data to ' + photo.id);
 
     // If value is negative then it is either west longitude or south latitude.
     // From: http://www.offroaders.com/info/tech-corner/reading/GPS-Coordinates.htm
-    gps[piexif.GPSIFD.GPSLatitudeRef] = photo.place.location.latitude < 0 ? "S" : "N";
-    gps[piexif.GPSIFD.GPSLongitudeRef] = photo.place.location.longitude < 0 ? "W" : "E";
 
-    gps[piexif.GPSIFD.GPSLatitude] = [
-      Math.abs(Math.floor(photo.place.location.latitude * MULTIPLIER)),
-      MULTIPLIER
-    ];
+    if (photo.place.location.latitude) {
+      gps[piexif.GPSIFD.GPSLatitudeRef] = photo.place.location.latitude < 0 ? "S" : "N";
+      gps[piexif.GPSIFD.GPSLatitude] = [
+        Math.abs(Math.floor(photo.place.location.latitude * MULTIPLIER)),
+        MULTIPLIER
+      ];
+    }
 
-    gps[piexif.GPSIFD.GPSLongitude] = [
-      Math.abs(Math.floor(MULTIPLIER * photo.place.location.longitude)),
-      MULTIPLIER
-    ];
+    if (photo.place.location.longitude) {
+      gps[piexif.GPSIFD.GPSLongitudeRef] = photo.place.location.longitude < 0 ? "W" : "E";
+      gps[piexif.GPSIFD.GPSLongitude] = [
+        Math.abs(Math.floor(MULTIPLIER * photo.place.location.longitude)),
+        MULTIPLIER
+      ];
+    }
   }
 
   var exifObj = {"0th":zeroth, "Exif":exif, "GPS":gps};
