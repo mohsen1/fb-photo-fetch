@@ -15,11 +15,16 @@ process.env.DEBUG = argv.debug || process.env.DEBUG;
 var getAll = require('./get_all');
 var download = require('./download');
 
+var photoSelector = function (photo) {
+	var includePhoto = !argv.sinceDate || Date.parse(photo.created_time) > Date.parse(argv.sinceDate);
+	return includePhoto;
+}
+
 getAll(token, argv.albums, argv.tagged, function (err, result) {
 
   if (err) {throw err; }
 
   fs.writeFileSync('result.json', JSON.stringify(result, null, 4));
-
-  download(result, dest);
+  
+  download(result, dest, photoSelector);
 });
