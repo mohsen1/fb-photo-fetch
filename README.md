@@ -8,7 +8,8 @@ Clone this repo and execute `index.js` via Node.js with following flags:
 
 * **`token`**: [**Required**] A valid Facebook API token. Grab one from [here](https://developers.facebook.com/tools/explorer). You need to be a developer and create an app.
 * **`dest`**: destination folder to download your photos to. Default: `photos`
-* **`tagged`**: Set to `true` to download your tagged photos also. Default: `false`
+* **`albums`**: When set, download your photo albums. Default: `true`
+* **`tagged`**: When set, download your tagged photos. Default: `false`
 * **`debug`**: Debug level output. Defaults to no debug output. Can be set one or  many of these options:
   * `api`: API Calls
   * `json`: Assembling JSON
