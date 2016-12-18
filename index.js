@@ -15,11 +15,22 @@ process.env.DEBUG = argv.debug || process.env.DEBUG;
 var getAll = require('./get_all');
 var download = require('./download');
 
+var sinceDate = require('moment')(argv.sinceDate, "YYYY/MM/DD");
+if (!sinceDate.isValid()) {
+	require('debug')('download')("invalid sinceDate '" + argv.sinceDate + "', date filter disabled (get all).");
+	sinceDate = 0;
+}
+
+var photoSelector = function (photo) {
+	var includePhoto = !sinceDate || Date.parse(photo.created_time) > sinceDate;
+	return includePhoto;
+}
+
 getAll(token, argv.albums, argv.tagged, function (err, result) {
 
   if (err) {throw err; }
 
   fs.writeFileSync('result.json', JSON.stringify(result, null, 4));
-
-  download(result, dest);
+  
+  download(result, dest, photoSelector);
 });

@@ -10,6 +10,7 @@ Clone this repo and execute `index.js` via Node.js with following flags:
 * **`dest`**: destination folder to download your photos to. Default: `photos`
 * **`albums`**: When set, download your photo albums. Default: `true`
 * **`tagged`**: When set, download your tagged photos. Default: `false`
+* **`sinceDate`**: When set, only download photos newer than date. Format: yyyy/mm/dd
 * **`debug`**: Debug level output. Defaults to no debug output. Can be set one or  many of these options:
   * `api`: API Calls
   * `json`: Assembling JSON

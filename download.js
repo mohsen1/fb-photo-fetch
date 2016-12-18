@@ -9,7 +9,7 @@ var touch = require('touch');
 
 var addExif = require('./add_exif');
 
-module.exports = function(albums, dest) {
+module.exports = function(albums, dest, photoSelector) {
 
   mkdirp.sync(dest);
 
@@ -24,7 +24,7 @@ module.exports = function(albums, dest) {
 
     mkdirp.sync(albumPath);
 
-    async.each(album.photos, downloadPhoto, function (err) {
+    async.each(album.photos.filter(photoSelector), downloadPhoto, function (err) {
       debug('Finished downloading ' + album.name);
       dlAlbumCb(err);
     });
