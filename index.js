@@ -17,7 +17,6 @@ var download = require('./download');
 
 var sinceDate = require('moment')(argv.sinceDate, "YYYY/MM/DD");
 if (!sinceDate.isValid()) {
-	console.log(sinceDate);
 	require('debug')('download')("invalid sinceDate '" + argv.sinceDate + "', date filter disabled (get all).");
 	sinceDate = 0;
 }
