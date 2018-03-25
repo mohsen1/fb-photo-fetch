@@ -4,9 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "precommit": "lint-staged",
+    "prettier": "prettier --write *.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "lint-staged": {
+    "*.{js,json,css,md}": ["prettier --write", "git add"]
+  },
+  "author": "Mohsen Azimi",
   "license": "ISC",
   "dependencies": {
     "async": "^1.0.0",
@@ -19,5 +24,10 @@
     "stream-to-buffer": "^0.1.0",
     "to-exif-date": "^1.0.0",
     "touch": "0.0.3"
+  },
+  "devDependencies": {
+    "husky": "^0.14.3",
+    "lint-staged": "^7.0.0",
+    "prettier": "^1.11.1"
   }
 }
