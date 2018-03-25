@@ -32,32 +32,37 @@ module.exports = function(albums, dest, photoSelector) {
     function downloadPhoto(photo, cb) {
       var filePath = path.join(albumPath, photo.id + '.jpg');
 
-      request((Array.isArray(photo.images) && photo.images.length > 0 && photo.images[0].source) || photo.source)
-        .on('response', function (response) {
-          streamToBuffer(response, function (err, buffer) {
+			fs.stat(filePath, function(stat_err, stats) {
+				if (stat_err) {
+					request((Array.isArray(photo.images) && photo.images.length > 0 && photo.images[0].source) || photo.source)
+						.on('response', function (response) {
+							streamToBuffer(response, function (err, buffer) {
 
-            if (err) {
-              return debug('Error converting ' + (photo.name || photo.id));
-            }
+								if (err) {
+									return debug('Error converting ' + (photo.name || photo.id));
+								}
 
-            var result = addExif(photo, buffer.toString('binary'));
+								var result = addExif(photo, buffer.toString('binary'));
 
-            fs.writeFile(filePath, result, 'binary', function(err) {
-              if (err) { return cb(err); }
+								fs.writeFile(filePath, result, 'binary', function(err) {
+									if (err) { return cb(err); }
 
-              var opts = {
-                time: photo.created_time
-              };
+									var opts = {
+										time: photo.created_time
+									};
 
-              setTimeout(function() {
-                touch(filePath, opts, cb);
-              }, 10);
-            });
-          });
-        })
-        .on('error', function(err) {
-          debug('Error downloading ' + photo.id + err.toString());
-        });
+									setTimeout(function() {
+										touch(filePath, opts, cb);
+									}, 10);
+								});
+							});
+						})
+						.on('error', function(err) {
+							debug('Error downloading ' + photo.id + err.toString());
+						});
+				}
+			});
+
     }
   }
 };
