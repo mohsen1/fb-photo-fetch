@@ -4,16 +4,16 @@
 
 module.exports = function makeTags(photo) {
   if (!photo || !photo.name_tags) {
-    return '';
+    return "";
   }
 
-  var str = '';
+  var str = "";
 
   for (var tagId in photo.name_tags) {
     var tag = photo.name_tags[tagId];
 
     if (Array.isArray(tag)) {
-      str += tag[0].name + '\n';
+      str += tag[0].name + "\n";
     }
   }
 };
