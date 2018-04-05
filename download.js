@@ -35,38 +35,42 @@ module.exports = function(albums, dest, photoSelector) {
 
       fs.stat(filePath, function(stat_err, stats) {
         if (stat_err) {
-          request(
+          var source =
             (Array.isArray(photo.images) &&
               photo.images.length > 0 &&
               photo.images[0].source) ||
-              photo.source
-          )
-            .on("response", function(response) {
-              streamToBuffer(response, function(err, buffer) {
-                if (err) {
-                  return debug("Error converting " + (photo.name || photo.id));
-                }
-
-                var result = addExif(photo, buffer.toString("binary"));
-
-                fs.writeFile(filePath, result, "binary", function(err) {
+            photo.source;
+          if (source != null && source) {
+            request(source)
+              .on("response", function(response) {
+                streamToBuffer(response, function(err, buffer) {
                   if (err) {
-                    return cb(err);
+                    return debug(
+                      "Error converting " + (photo.name || photo.id)
+                    );
                   }
 
-                  var opts = {
-                    time: photo.created_time
-                  };
+                  var result = addExif(photo, buffer.toString("binary"));
 
-                  setTimeout(function() {
-                    touch(filePath, opts, cb);
-                  }, 10);
+                  fs.writeFile(filePath, result, "binary", function(err) {
+                    if (err) {
+                      return cb(err);
+                    }
+
+                    var opts = {
+                      time: photo.created_time
+                    };
+
+                    setTimeout(function() {
+                      touch(filePath, opts, cb);
+                    }, 10);
+                  });
                 });
+              })
+              .on("error", function(err) {
+                debug("Error downloading " + photo.id + err.toString());
               });
-            })
-            .on("error", function(err) {
-              debug("Error downloading " + photo.id + err.toString());
-            });
+          }
         }
       });
     }
