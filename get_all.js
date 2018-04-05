@@ -27,21 +27,24 @@ module.exports = function(
       } else {
         debug("getting tagged photos.");
 
-        paginate(url("/me/photos"), function(err, taggedPhotos) {
-          if (err) {
-            return cb(err);
+        paginate(
+          url("/me/photos").concat("&fields=id,images,source,created_time"),
+          function(err, taggedPhotos) {
+            if (err) {
+              return cb(err);
+            }
+
+            debug("got all tagged photos.");
+
+            cb(
+              null,
+              albums.concat({
+                name: "Photos of me (Tagged photos)",
+                photos: taggedPhotos
+              })
+            );
           }
-
-          debug("got all tagged photos.");
-
-          cb(
-            null,
-            albums.concat({
-              name: "Photos of me (Tagged photos)",
-              photos: taggedPhotos
-            })
-          );
-        });
+        );
       }
     });
   });
