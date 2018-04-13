@@ -80,7 +80,7 @@ module.exports = function(
   // ---------- helpers ----------
 
   function url() {
-    var BASE_URL = "https://graph.facebook.com/v2.3";
+    var BASE_URL = "https://graph.facebook.com/v2.12";
     var paths = [].slice.apply(arguments);
 
     return [BASE_URL]

@@ -14,20 +14,20 @@
   "author": "Mohsen Azimi",
   "license": "ISC",
   "dependencies": {
-    "async": "^1.0.0",
-    "debug": "^2.2.0",
-    "minimist": "^1.1.1",
+    "async": "^2.6.0",
+    "debug": "^3.1.0",
+    "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
-    "moment": "^2.14.0",
-    "piexifjs": "^1.0.0",
-    "request": "^2.56.0",
+    "moment": "^2.22.0",
+    "piexifjs": "^1.0.4",
+    "request": "^2.85.0",
     "stream-to-buffer": "^0.1.0",
     "to-exif-date": "^1.0.0",
-    "touch": "0.0.3"
+    "touch": "3.1.0"
   },
   "devDependencies": {
     "husky": "^0.14.3",
-    "lint-staged": "^7.0.0",
-    "prettier": "^1.11.1"
+    "lint-staged": "^7.0.4",
+    "prettier": "^1.12.0"
   }
 }
