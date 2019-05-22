@@ -49,8 +49,14 @@ module.exports = function(albums, dest, photoSelector) {
                       "Error converting " + (photo.name || photo.id)
                     );
                   }
-
-                  var result = addExif(photo, buffer.toString("binary"));
+                  try {
+                    var result = addExif(photo, buffer.toString("binary"));
+                  }
+                  catch (error) {
+                    return debug(
+                      "Error adding exif data to " + (photo.name || photo.id)
+                    );
+                  }
 
                   fs.writeFile(filePath, result, "binary", function(err) {
                     if (err) {
